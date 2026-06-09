@@ -1,5 +1,5 @@
 /**
- * checksum-maven-plugin - http://checksum-maven-plugin.nicoulaj.net
+ * checksum-maven-plugin
  * Copyright © 2010-2021 checksum-maven-plugin contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import net.nicoulaj.maven.plugins.checksum.test.integration.PostBuildScriptHelper
+import org.openmrs.maven.plugins.checksum.test.integration.PostBuildScriptHelper
+import org.apache.maven.artifact.versioning.ComparableVersion
 
 try
 {
@@ -29,22 +30,29 @@ try
   helper.assertBuildLogContains( "checksum-maven-plugin" );
 
   // Check files have been created and are not empty.
-  helper.assertFileIsNotEmpty( "target/issue-48-1.0-SNAPSHOT.jar.md5" )
-  helper.assertFileIsNotEmpty( "target/issue-48-1.0-SNAPSHOT.jar.sha1" )
-  helper.assertFileIsNotEmpty( "target/issue-48-1.0-SNAPSHOT.jar.sha256" )
+  helper.assertFileIsNotEmpty( "target/issue-48-1.0.0-SNAPSHOT.jar.md5" )
+  helper.assertFileIsNotEmpty( "target/issue-48-1.0.0-SNAPSHOT.jar.sha1" )
+  helper.assertFileIsNotEmpty( "target/issue-48-1.0.0-SNAPSHOT.jar.sha256" )
 
   // Check files have been installed.
-  helper.assertFileIsNotEmptyInLocalRepo( "net/nicoulaj/maven/plugins/checksum/test/projects/issue-48/1.0-SNAPSHOT/issue-48-1.0-SNAPSHOT.jar.md5" )
-  helper.assertFileIsNotEmptyInLocalRepo( "net/nicoulaj/maven/plugins/checksum/test/projects/issue-48/1.0-SNAPSHOT/issue-48-1.0-SNAPSHOT.jar.sha1" )
-  helper.assertFileIsNotEmptyInLocalRepo( "net/nicoulaj/maven/plugins/checksum/test/projects/issue-48/1.0-SNAPSHOT/issue-48-1.0-SNAPSHOT.jar.sha256" )
+  helper.assertFileIsNotEmptyInLocalRepo( "org/openmrs/maven/plugins/checksum/test/projects/issue-48/1.0.0-SNAPSHOT/issue-48-1.0.0-SNAPSHOT.jar.md5" )
+  helper.assertFileIsNotEmptyInLocalRepo( "org/openmrs/maven/plugins/checksum/test/projects/issue-48/1.0.0-SNAPSHOT/issue-48-1.0.0-SNAPSHOT.jar.sha1" )
+  helper.assertFileIsNotEmptyInLocalRepo( "org/openmrs/maven/plugins/checksum/test/projects/issue-48/1.0.0-SNAPSHOT/issue-48-1.0.0-SNAPSHOT.jar.sha256" )
 
   // Check files have been deployed.
-  helper.assertFileExists( "target/deploy-repository/net/nicoulaj/maven/plugins/checksum/test/projects/issue-48/1.0-SNAPSHOT", "issue-48-1.0-*.md5" )
-  helper.assertFileExists( "target/deploy-repository/net/nicoulaj/maven/plugins/checksum/test/projects/issue-48/1.0-SNAPSHOT", "issue-48-1.0-*.md5.md5" )
-  helper.assertFileExists( "target/deploy-repository/net/nicoulaj/maven/plugins/checksum/test/projects/issue-48/1.0-SNAPSHOT", "issue-48-1.0-*.sha1" )
-  helper.assertFileExists( "target/deploy-repository/net/nicoulaj/maven/plugins/checksum/test/projects/issue-48/1.0-SNAPSHOT", "issue-48-1.0-*.sha1.md5" )
-  helper.assertFileExists( "target/deploy-repository/net/nicoulaj/maven/plugins/checksum/test/projects/issue-48/1.0-SNAPSHOT", "issue-48-1.0-*.sha256" )
-  helper.assertFileExists( "target/deploy-repository/net/nicoulaj/maven/plugins/checksum/test/projects/issue-48/1.0-SNAPSHOT", "issue-48-1.0-*.sha256.md5" )
+  helper.assertFileExists( "target/deploy-repository/org/openmrs/maven/plugins/checksum/test/projects/issue-48/1.0.0-SNAPSHOT", "issue-48-1.0.0-*.md5" )
+  helper.assertFileExists( "target/deploy-repository/org/openmrs/maven/plugins/checksum/test/projects/issue-48/1.0.0-SNAPSHOT", "issue-48-1.0.0-*.sha1" )
+  helper.assertFileExists( "target/deploy-repository/org/openmrs/maven/plugins/checksum/test/projects/issue-48/1.0.0-SNAPSHOT", "issue-48-1.0.0-*.sha256" )
+
+  // Maven < 3.9.0 also deploys a checksum for every deployed file, including the attached
+  // checksum files themselves (e.g. issue-48-1.0.0-*.md5.md5). Maven 3.9.0+ no longer
+  // generates checksums for checksum files, so only assert these on older Maven.
+  if ( new ComparableVersion( mavenVersion ) < new ComparableVersion( "3.9.0" ) )
+  {
+    helper.assertFileExists( "target/deploy-repository/org/openmrs/maven/plugins/checksum/test/projects/issue-48/1.0.0-SNAPSHOT", "issue-48-1.0.0-*.md5.md5" )
+    helper.assertFileExists( "target/deploy-repository/org/openmrs/maven/plugins/checksum/test/projects/issue-48/1.0.0-SNAPSHOT", "issue-48-1.0.0-*.sha1.md5" )
+    helper.assertFileExists( "target/deploy-repository/org/openmrs/maven/plugins/checksum/test/projects/issue-48/1.0.0-SNAPSHOT", "issue-48-1.0.0-*.sha256.md5" )
+  }
 
 }
 catch ( Exception e )

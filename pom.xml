@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    checksum-maven-plugin - http://checksum-maven-plugin.nicoulaj.net
+    checksum-maven-plugin
     Copyright © 2010-2021 checksum-maven-plugin contributors
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,67 +20,89 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>net.nicoulaj</groupId>
-    <artifactId>parent</artifactId>
-    <version>62</version>
-  </parent>
-
-  <groupId>net.nicoulaj.maven.plugins</groupId>
+  <groupId>org.openmrs.maven.plugins</groupId>
   <artifactId>checksum-maven-plugin</artifactId>
-  <version>1.12-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
 
   <name>checksum-maven-plugin</name>
-  <description>Compute project artifacts/dependencies/files checksum digests and output them to individual or summary files.
-  </description>
-  <url>https://checksum-maven-plugin.nicoulaj.net</url>
+  <description>Compute project artifacts/dependencies/files checksum digests and output them to individual or summary files.</description>
+  <url>https://github.com/openmrs/openmrs-contrib-checksum-maven-plugin</url>
   <inceptionYear>2010</inceptionYear>
 
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.html</url>
     </license>
     <license>
       <name>The Legion of the Bouncy Castle license</name>
-      <url>http://www.bouncycastle.org/license.html</url>
+      <url>https://www.bouncycastle.org/license.html</url>
       <comments>The Legion of the Bouncy Castle is a cryptography library used by checksum-maven-plugin.</comments>
     </license>
   </licenses>
 
+
+  <developers>
+    <developer>
+      <id>nicoulaj</id>
+      <name>Julien Nicoulaud</name>
+      <email>julien.nicoulaud@gmail.com</email>
+      <url>https://www.github.com/nicoulaj</url>
+      <roles>
+        <role>Original Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>openmrs</id>
+      <name>OpenMRS, Inc.</name>
+      <url>https://openmrs.org</url>
+      <roles>
+        <role>Maintainer</role>
+      </roles>
+    </developer>
+  </developers>
+
   <scm>
-    <url>https://github.com/nicoulaj/checksum-maven-plugin</url>
-    <connection>scm:git:git@github.com:nicoulaj/checksum-maven-plugin.git</connection>
-    <developerConnection>scm:git:git@github.com:nicoulaj/checksum-maven-plugin.git</developerConnection>
+    <url>https://github.com/openmrs/openmrs-contrib-checksum-maven-plugin</url>
+    <connection>scm:git:git@github.com:openmrs/openmrs-contrib-checksum-maven-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:openmrs/openmrs-contrib-checksum-maven-plugin.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
-    <system>Github</system>
-    <url>https://github.com/nicoulaj/checksum-maven-plugin/issues</url>
+    <system>Jira</system>
+    <url>https://issues.openmrs.org</url>
   </issueManagement>
 
   <ciManagement>
     <system>Github</system>
-    <url>https://github.com/nicoulaj/checksum-maven-plugin/actions</url>
+    <url>https://github.com/openmrs/openmrs-contrib-checksum-maven-plugin/actions</url>
   </ciManagement>
 
   <distributionManagement>
-    <site>
-      <id>github</id>
-      <url>gitsite:git@github.com/nicoulaj/checksum-maven-plugin.git</url>
-    </site>
+    <repository>
+      <id>openmrs-repo-releases</id>
+      <name>OpenMRS Releases Repo</name>
+      <url>https://mavenrepo.openmrs.org/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>openmrs-repo-snapshots</id>
+      <name>OpenMRS Snapshots Repo</name>
+      <url>https://mavenrepo.openmrs.org/snapshots</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <properties>
-
     <!-- Versions -->
-    <java.level>1.8</java.level>
-    <maven.version>3.1.1</maven.version>
-    <bouncycastle.version>1.70</bouncycastle.version>
-    <aether.version>0.9.0.M2</aether.version> <!-- locked to version provided by minimum supported maven version -->
-    <sisu.version>0.3.5</sisu.version>
+    <maven.source.version>8</maven.source.version>
+    <maven.target.version>8</maven.target.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.version>3.6.3</maven.version>
+    <maven-plugin-plugin.version>3.13.1</maven-plugin-plugin.version>
+    <bouncycastle.version>1.84</bouncycastle.version>
+    <maven-resolver.version>1.4.1</maven-resolver.version> <!-- locked to version provided by minimum supported maven version -->
     <maven-common-artifact-filters.version>3.2.0</maven-common-artifact-filters.version>
     <maven-shared-utils.version>3.3.4</maven-shared-utils.version>
 
@@ -88,7 +110,6 @@
     <debug>false</debug>
     <invoker.settings-file>${project.basedir}/src/it/settings.xml</invoker.settings-file>
     <project.build.outputTimestamp>2021-07-05T19:41:16Z</project.build.outputTimestamp>
-
   </properties>
 
   <prerequisites>
@@ -122,21 +143,15 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>org.eclipse.sisu</groupId>
-        <artifactId>org.eclipse.sisu.plexus</artifactId>
-        <version>${sisu.version}</version>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-resolver</artifactId>
+        <version>${maven-resolver.version}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>org.eclipse.aether</groupId>
-        <artifactId>aether-api</artifactId>
-        <version>${aether.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.aether</groupId>
-        <artifactId>aether-util</artifactId>
-        <version>${aether.version}</version>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-resolver-util</artifactId>
+        <version>${maven-resolver.version}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -147,7 +162,7 @@
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
-        <artifactId>bcprov-jdk15on</artifactId>
+        <artifactId>bcprov-jdk18on</artifactId>
         <version>${bouncycastle.version}</version>
       </dependency>
       <dependency>
@@ -160,6 +175,12 @@
         <groupId>org.apache.maven.shared</groupId>
         <artifactId>maven-shared-utils</artifactId>
         <version>${maven-shared-utils.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.2</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -179,7 +200,7 @@
     </dependency>
     <dependency>
       <groupId>org.bouncycastle</groupId>
-      <artifactId>bcprov-jdk15on</artifactId>
+      <artifactId>bcprov-jdk18on</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.shared</groupId>
@@ -192,7 +213,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -200,7 +220,9 @@
 
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.6.3</version>
         <executions>
           <execution>
             <id>enforce-maven-version</id>
@@ -221,6 +243,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>animal-sniffer-maven-plugin</artifactId>
+        <version>1.27</version>
         <executions>
           <execution>
             <goals>
@@ -237,7 +260,9 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
+        <version>3.10.1</version>
         <executions>
           <execution>
             <id>run-integration-tests</id>
@@ -268,7 +293,9 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
+        <version>${maven-plugin-plugin.version}</version>
         <configuration>
           <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
         </configuration>
@@ -288,16 +315,15 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>${java.level}</source>
-          <target>${java.level}</target>
-        </configuration>
+        <version>3.15.0</version>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.12.0</version>
         <configuration>
-          <encoding>${encoding}</encoding>
           <tagletArtifacts>
             <tagletArtifact>
               <groupId>org.apache.maven.plugin-tools</groupId>
@@ -309,6 +335,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.15</version>
         <configuration>
           <excludes>
             <exclude>**/HelpMojo.class</exclude>
@@ -362,11 +389,9 @@
         </executions>
       </plugin>
     </plugins>
-
   </build>
 
   <profiles>
-
     <!-- Increase verbosity -->
     <profile>
       <id>debug</id>
@@ -388,18 +413,50 @@
       </properties>
     </profile>
 
+    <profile>
+      <id>jdk-9-support</id>
+      <activation>
+        <jdk>[9,)</jdk>
+      </activation>
+      <properties>
+        <maven.compiler.release>8</maven.compiler.release>
+      </properties>
+    </profile>
+    <!-- suppress warning about Java 8 on 21+ -->
+    <profile>
+      <id>jdk-21-support</id>
+      <activation>
+        <jdk>[21,)</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <compilerArgs>
+                <arg>-Xlint:-options</arg>
+              </compilerArgs>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 
   <!-- Reporting and site -->
   <reporting>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.13.1</version>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.12.0</version>
         <configuration>
-          <encoding>${encoding}</encoding>
           <tagletArtifacts>
             <tagletArtifact>
               <groupId>org.apache.maven.plugin-tools</groupId>
@@ -409,15 +466,19 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
+        <version>3.10.1</version>
         <configuration>
           <reportsDirectory>${project.build.directory}/it/reports</reportsDirectory>
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.28.0</version>
         <configuration>
-          <targetJdk>${java.level}</targetJdk>
+          <targetJdk>${maven.compiler.release}</targetJdk>
         </configuration>
       </plugin>
     </plugins>

@@ -1,5 +1,5 @@
 /**
- * checksum-maven-plugin - http://checksum-maven-plugin.nicoulaj.net
+ * checksum-maven-plugin
  * Copyright © 2010-2021 checksum-maven-plugin contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import net.nicoulaj.maven.plugins.checksum.test.integration.PostBuildScriptHelper
+import org.openmrs.maven.plugins.checksum.test.integration.PostBuildScriptHelper
 
 try
 {
@@ -29,8 +29,8 @@ try
   helper.assertBuildLogContains( "checksum-maven-plugin" );
 
   // Check files have been created and are not empty.
-  helper.assertFileIsNotEmpty( "target/issue-54-1.0-SNAPSHOT.jar.md5" )
-  helper.assertFileIsNotEmpty( "target/issue-54-1.0-SNAPSHOT.jar.sha1" )
+  helper.assertFileIsNotEmpty( "target/issue-54-1.0.0-SNAPSHOT.jar.md5" )
+  helper.assertFileIsNotEmpty( "target/issue-54-1.0.0-SNAPSHOT.jar.sha1" )
 
   // Assert "file" mojo ran.
   helper.assertBuildLogContains( "postbuild.groovy - Cksum : " );

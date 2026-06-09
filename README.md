@@ -1,6 +1,6 @@
-checksum-maven-plugin [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.nicoulaj.maven.plugins/checksum-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.nicoulaj.maven.plugins/checksum-maven-plugin) [![build](https://github.com/nicoulaj/checksum-maven-plugin/workflows/build/badge.svg)](https://github.com/nicoulaj/checksum-maven-plugin/actions?query=workflow%3Abuild) [![Coverage](https://codecov.io/gh/nicoulaj/checksum-maven-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/nicoulaj/checksum-maven-plugin)
+checksum-maven-plugin
 ==================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 
 **Compute project artifacts/dependencies/files checksum digests and output them to individual or summary files.**
 
-The documentation is at <https://checksum-maven-plugin.nicoulaj.net>.
+This is a fork of the checksum-maven-plugin updated to work on Java 25 and Maven 3.9

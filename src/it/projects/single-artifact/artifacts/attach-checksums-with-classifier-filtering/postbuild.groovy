@@ -1,5 +1,5 @@
 /**
- * checksum-maven-plugin - http://checksum-maven-plugin.nicoulaj.net
+ * checksum-maven-plugin
  * Copyright © 2010-2020 checksum-maven-plugin contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import net.nicoulaj.maven.plugins.checksum.test.integration.PostBuildScriptHelper
+import org.openmrs.maven.plugins.checksum.test.integration.PostBuildScriptHelper
 
 // Instantiate a helper.
 PostBuildScriptHelper helper = new PostBuildScriptHelper( basedir, localRepositoryPath, context )
@@ -26,9 +26,9 @@ helper.assertBuildLogDoesNotContain('[ERROR]')
 helper.assertBuildLogContains( "checksum-maven-plugin" );
 
 // Check files have been created and are not empty.
-helper.assertFileDoesNotExist( "target/single-artifact.artifacts.attach-checksums-with-classifier-filtering-1.0-SNAPSHOT.jar.sha512" )
-helper.assertFileIsNotEmpty( "target/single-artifact.artifacts.attach-checksums-with-classifier-filtering-1.0-SNAPSHOT-sources.jar.sha512" )
-helper.assertFileDoesNotExist( "target/single-artifact.artifacts.attach-checksums-with-classifier-filtering-1.0-SNAPSHOT-javadoc.jar.sha512" )
-helper.assertFileDoesNotExistInLocalRepo( "net/nicoulaj/maven/plugins/checksum/test/projects/single-artifact.artifacts.attach-checksums-with-classifier-filtering/1.0-SNAPSHOT/single-artifact.artifacts.attach-checksums-with-classifier-filtering-1.0-SNAPSHOT.jar.sha512" )
-helper.assertFileIsNotEmptyInLocalRepo( "net/nicoulaj/maven/plugins/checksum/test/projects/single-artifact.artifacts.attach-checksums-with-classifier-filtering/1.0-SNAPSHOT/single-artifact.artifacts.attach-checksums-with-classifier-filtering-1.0-SNAPSHOT-sources.jar.sha512" )
-helper.assertFileDoesNotExistInLocalRepo( "net/nicoulaj/maven/plugins/checksum/test/projects/single-artifact.artifacts.attach-checksums-with-classifier-filtering/1.0-SNAPSHOT/single-artifact.artifacts.attach-checksums-with-classifier-filtering-1.0-SNAPSHOT-javadoc.jar.sha512" )
+helper.assertFileDoesNotExist( "target/single-artifact.artifacts.attach-checksums-with-classifier-filtering-1.0.0-SNAPSHOT.jar.sha512" )
+helper.assertFileIsNotEmpty( "target/single-artifact.artifacts.attach-checksums-with-classifier-filtering-1.0.0-SNAPSHOT-sources.jar.sha512" )
+helper.assertFileDoesNotExist( "target/single-artifact.artifacts.attach-checksums-with-classifier-filtering-1.0.0-SNAPSHOT-javadoc.jar.sha512" )
+helper.assertFileDoesNotExistInLocalRepo( "org/openmrs/maven/plugins/checksum/test/projects/single-artifact.artifacts.attach-checksums-with-classifier-filtering/1.0.0-SNAPSHOT/single-artifact.artifacts.attach-checksums-with-classifier-filtering-1.0.0-SNAPSHOT.jar.sha512" )
+helper.assertFileIsNotEmptyInLocalRepo( "org/openmrs/maven/plugins/checksum/test/projects/single-artifact.artifacts.attach-checksums-with-classifier-filtering/1.0.0-SNAPSHOT/single-artifact.artifacts.attach-checksums-with-classifier-filtering-1.0.0-SNAPSHOT-sources.jar.sha512" )
+helper.assertFileDoesNotExistInLocalRepo( "org/openmrs/maven/plugins/checksum/test/projects/single-artifact.artifacts.attach-checksums-with-classifier-filtering/1.0.0-SNAPSHOT/single-artifact.artifacts.attach-checksums-with-classifier-filtering-1.0.0-SNAPSHOT-javadoc.jar.sha512" )
