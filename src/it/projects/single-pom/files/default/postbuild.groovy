@@ -1,5 +1,5 @@
 /**
- * checksum-maven-plugin - http://checksum-maven-plugin.nicoulaj.net
+ * checksum-maven-plugin
  * Copyright © 2010-2021 checksum-maven-plugin contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import net.nicoulaj.maven.plugins.checksum.test.integration.PostBuildScriptHelper
+import org.openmrs.maven.plugins.checksum.test.integration.PostBuildScriptHelper
 
 try
 {
@@ -28,7 +28,7 @@ try
   helper.assertBuildLogContains( "checksum-maven-plugin" );
 
   // Look for the right log message.
-  helper.assertBuildLogContains( "The parameters 'fileSets' for goal net.nicoulaj.maven.plugins:checksum-maven-plugin" );
+  helper.assertBuildLogContains( "The parameters 'fileSets' for goal org.openmrs.maven.plugins:checksum-maven-plugin" );
 
 }
 catch ( Exception e )

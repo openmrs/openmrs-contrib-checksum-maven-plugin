@@ -1,5 +1,5 @@
 /**
- * checksum-maven-plugin - http://checksum-maven-plugin.nicoulaj.net
+ * checksum-maven-plugin
  * Copyright © 2010-2021 checksum-maven-plugin contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import net.nicoulaj.maven.plugins.checksum.Constants
-import net.nicoulaj.maven.plugins.checksum.test.integration.PostBuildScriptHelper
+import org.openmrs.maven.plugins.checksum.Constants
+import org.openmrs.maven.plugins.checksum.test.integration.PostBuildScriptHelper
 
 try
 {
@@ -40,10 +40,10 @@ try
   }
 
   // Check there are traces of each file.
-  helper.assertFileContains( summaryFile, "attached-artifacts.artifacts.csv-summary-file-1.0-SNAPSHOT.jar" )
-  helper.assertFileContains( summaryFile, "attached-artifacts.artifacts.csv-summary-file-1.0-SNAPSHOT-src.tar.bz2" )
-  helper.assertFileContains( summaryFile, "attached-artifacts.artifacts.csv-summary-file-1.0-SNAPSHOT-src.tar.gz" )
-  helper.assertFileContains( summaryFile, "attached-artifacts.artifacts.csv-summary-file-1.0-SNAPSHOT-src.zip" )
+  helper.assertFileContains( summaryFile, "attached-artifacts.artifacts.csv-summary-file-1.0.0-SNAPSHOT.jar" )
+  helper.assertFileContains( summaryFile, "attached-artifacts.artifacts.csv-summary-file-1.0.0-SNAPSHOT-src.tar.bz2" )
+  helper.assertFileContains( summaryFile, "attached-artifacts.artifacts.csv-summary-file-1.0.0-SNAPSHOT-src.tar.gz" )
+  helper.assertFileContains( summaryFile, "attached-artifacts.artifacts.csv-summary-file-1.0.0-SNAPSHOT-src.zip" )
 
 }
 catch ( Exception e )
